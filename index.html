@@ -1,0 +1,184 @@
+<!-- use class 56 (fullstack3 drive) -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Noam Tzionit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MP3 music player">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
+        crossorigin="anonymous">
+
+    <title>Music Player</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="scripts/search_playlist.js"></script>
+</head>
+
+<body>
+    <div id="wraper">
+            <nav class="navbar navbar-expand-sm sticky-top navbar-dark bg-dark">
+                <ul class="navbar-nav container">
+                    <li class="nav-item">
+                        <button type="button" id="addNP_btn" class="btn btn-dark" data-toggle="modal" data-target="#newListModal">
+                            <i class="fas fa-plus-circle text-light"></i>&nbsp;Add new playlist</button>
+                    </li>
+                    <li class="nav-item">
+                        <form class="form-inline">
+                            <div id="navbarSearchForm" class="form-group">
+                                <input id="searchBox" class="form-control form-control-sm" type="search" placeholder="search playlist...">
+                                <button class="btn btn-dark" type="submit">
+                                    <i class="fas fa-search text-light"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+            <div id="player" class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 responseContainer"></div>
+            <div id="playlists" class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 responseContainer"></div>
+        <!-- footer -->
+        <footer class="navbar fixed-bottom navbar-light bg-light">
+            <span>
+                &copy;&nbsp;developing & design by Noam Tzionit
+            </span>
+        </footer>
+    </div>
+    <!-- add new pplaylist modal window -->
+    <div>
+        <div id="newListModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content" width="700px">
+                    <div id="modal-header" class="modal-header">
+                        <h4 class="modal-title">Add New Playlist</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="addNewPForm" id="modalNewListForm" method="POST" enctype="multipart/form-data">
+                            <!--step 1 div-->
+                            <div id="addNewP_step1_div">
+                                <div style="display: flex;">
+                                    <div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="pName">Playlist Name
+                                                <input type="text" class="form-control" id="pName" aria-describedby="nameHelp" placeholder="e.g. Blood Sugar Sex Magic" required>
+                                                <small id="nameHelp" class="form-text text-muted">Choose a name for your playlist.</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div style="margin-left: 40px;">
+                                        <div class="form-group">
+                                            <label class="control-label" for="pImage">Playlist Image
+                                                <input type="text" class="form-control" id="pImage" placeholder="">
+                                                <small class="form-text text-muted">Please insert an image external URL to this website.</small>
+                                            </label>
+                                            <img id="imgPreview" src="" width="150px" height="150px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--step 1 div-->
+                            <!--step 2 div-->
+                            <div id="addNewP_step2_div">
+                                <div style="display: flex; justify-content: space-around">
+                                    <div id="addNewP_songList" class="form-group">
+                                        <div class="addNewP_song">
+                                            <label class="control-label" for="pSongURL"> Song URL
+                                                <input type="text" class="form-control pSongURL" name="pSongURL[]" required pattern=".+\.mp3$">
+                                            </label>
+                                            <label class="control-label" for="pSongName"> Song Name
+                                                <input type="text" class="form-control pSongName" name="pSongName[]" required>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" id="addNewP_addSong_btn" class="btn btn-primary finish_addNewPForm">Add Song</button>
+                                <button type="submit" id="addNewP_save" class="btn btn-primary finish_addNewPForm">Finish & Save</button>
+                            </div>
+                            <!--step 2 div-->
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="addNewP_step1_btn" class="btn btn-default" type="button">Next</button>
+                        <button id="addNewP_step2_btn" class="btn btn-default" type="button">Back</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- edit playlist modal window -->
+    <div>
+        <div id="editListModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content" width="700px">
+                    <div id="editListModal-header" class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="editPForm" id="modalEditForm" method="POST" enctype="multipart/form-data">
+                            <!--step 1 div-->
+                            <div id="editP_step1_div">
+                                <div style="display: flex;">
+                                    <div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="editpName">Playlist Name
+                                                <input type="text" class="form-control" id="editpName" aria-describedby="editnameHelp" placeholder="e.g. Blood Sugar Sex Magic"
+                                                    required>
+                                                <small id="editnameHelp" class="form-text text-muted">Choose a name for your playlist.</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div style="margin-left: 40px;">
+                                        <div class="form-group">
+                                            <label class="control-label" for="editpImage">Playlist Image
+                                                <input type="text" class="form-control" id="editpImage" placeholder="">
+                                                <small class="form-text text-muted">Please insert an image external URL to this website.</small>
+                                            </label>
+                                            <img id="editimgPreview" src="" width="150px" height="150px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--step 1 div-->
+                            <!--step 2 div-->
+                            <div id="editP_step2_div">
+                                <div style="display: flex; justify-content: space-around">
+                                    <div id="editP_songList" class="form-group"></div>
+                                </div>
+                                <button type="button" id="editP_addSong_btn" class="btn btn-primary finish_editPForm">Add Song</button>
+                                <button type="submit" id="editP_save" class="btn btn-primary finish_editPForm">Update</button>
+                            </div>
+                            <!--step 2 div-->
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="editP_step1_btn" class="btn btn-default" type="button">Next</button>
+                        <button id="editP_step2_btn" class="btn btn-default" type="button">Back</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-latest.min.js" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="scripts/circletype.min.js"></script>
+    <script src="scripts/playlist_control.js"></script>
+    <script src="scripts/add_playlist.js"></script>
+</body>
+
+</html>

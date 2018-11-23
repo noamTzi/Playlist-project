@@ -1,0 +1,260 @@
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+#wraper{
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 100%;
+    grid-template-areas:
+    'dashoard'
+    'player'
+    'main'
+    'footer';
+}
+
+nav{
+    opacity: 0.9;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+
+nav:hover{
+    zoom: 1;
+    filter: alpha(opacity=90);
+    opacity: 1;
+}
+
+.responseContainer{
+    margin: 20px;
+}
+
+.record{
+    position: relative;
+    width: 50%;
+    opacity: 0.85;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+.record:hover{
+    zoom: 1;
+    filter: alpha(opacity=50);
+    opacity: 1;
+}
+
+.record img{
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+}
+
+
+.recordCtrlButtons{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;;
+    width: 100%;
+    color: black;
+    opacity: 0;
+}
+
+.recordCtrlButtons:hover{
+    opacity: 1;
+}
+
+.recordPlayBtn{
+    position : absolute;
+    top: 44%;
+    left: 37%;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 35px;
+    font-size: 32px;
+}
+
+.recordPlayBtn>i{
+    margin: 25% 30%;
+}
+
+.recordEditBtn{
+    position : absolute;
+    top: 25%;
+    left: 52%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.recordEditBtn>i{
+    margin-left: 20%;
+}
+
+.recordDeleteBtn{
+    position : absolute;
+    top: 25%;
+    left: 35%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.recordDeleteBtn>i{
+    margin-left: 25%;
+}
+
+.recordPlayBtn:hover, .recordEditBtn:hover, .recordDeleteBtn:hover .recordEditBtn_player:hover, .recordDeleteBtn_player:hover{
+    cursor: pointer;
+}
+
+/* player styling */
+
+.player{
+    position: sticky;
+    width: 600px;
+    height: auto;
+    margin: 20px auto;
+    padding: 20px;
+    display: inline-flex;
+    background-color: gray;
+    border-radius: 100px;
+    align-items: center;
+    overflow: visible;
+}
+
+.hidden{
+    display: none;
+}
+
+.record h5{
+    margin: 0%;
+    padding: 0%;
+    margin-bottom: 1%;
+}
+
+
+.recordImg{
+    position: relative;
+}
+
+.recordImg img{
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+}
+
+.recordImg .recordPauseBtn{
+    position : absolute;
+    font-size: 32px;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 35px;
+    cursor: pointer;
+    top: 35%;
+    left: 35%;
+}
+
+.recordPauseBtn>i{
+    margin: 24% 26%;
+}
+
+.recordEditBtn_player{
+    position : absolute;
+    top: 25%;
+    left: 105%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.recordDeleteBtn_player{
+    position : absolute;
+    top: 55%;
+    left: 105%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.song{
+    cursor: pointer;
+}
+
+/* spinner */
+
+@-webkit-keyframes rotating{
+    from {
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+.rotating {
+    -webkit-animation: rotating 8s linear infinite;
+    -moz-animation: rotating 8s linear infinite;
+    -ms-animation: rotating 8s linear infinite;
+    -o-animation: rotating 8s linear infinite;
+    animation: rotating 8s linear infinite;
+}
+
+audio{
+    border-radius: 100px;
+}
+
+.playlists{
+    overflow: scroll;
+}
+
+input {
+    width: 200px !important;
+}
